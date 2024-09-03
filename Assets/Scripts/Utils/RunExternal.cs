@@ -9,8 +9,7 @@ public class RunExternal : MonoBehaviour
     {
         SteamExorcist,
         PHYLLOSOMA,
-        Game3,
-        Game4,
+        ptc,
     }
 
     [SerializeField] GameIndex index;
@@ -31,10 +30,8 @@ public class RunExternal : MonoBehaviour
                 return "SteamExorcist";
             case GameIndex.PHYLLOSOMA:
                 return "PHYLLOSOMA";
-            case GameIndex.Game3:
-                return "Game3";
-            case GameIndex.Game4:
-                return "Game4";
+            case GameIndex.ptc:
+                return "ptc";
             default:
                 return "error";
         }
