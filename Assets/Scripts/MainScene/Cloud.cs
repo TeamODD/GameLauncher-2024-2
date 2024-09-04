@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Cloud : MonoBehaviour
 {
+    Rigidbody rb;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         StartCoroutine(yMovement());
     }
 
@@ -19,29 +22,28 @@ public class Cloud : MonoBehaviour
 
     IEnumerator yMovement()
     {
-        int flag;
-        float randMaxY, deltaY;
-
+        float targetY, speed = 20;
         while (true)
         {
-            randMaxY = Time.fixedDeltaTime * Random.Range(3f, 6f);
-            flag = 1;
-            while (0 < randMaxY)
+            targetY = transform.position.y + Random.Range(20.0f, 30.0f);
+            speed = 20;
+            while (transform.position.y < targetY)
             {
-                deltaY = Time.fixedDeltaTime * 20 * flag;
-                transform.position += new Vector3(0, deltaY, 0);
-                randMaxY -= deltaY;
+                rb.velocity = new Vector3(0, speed, 0);
+                speed -= 0.1f;
                 yield return new WaitForFixedUpdate();
             }
-            randMaxY = Time.fixedDeltaTime * Random.Range(-6f, -3f);
-            flag = -1;
-            while (randMaxY < 0)
+            rb.velocity = Vector3.zero;
+
+            targetY = transform.position.y - Random.Range(20.0f, 30.0f);
+            speed = 20;
+            while (targetY < transform.position.y)
             {
-                deltaY = Time.fixedDeltaTime * 20 * flag;
-                transform.position += new Vector3(0, deltaY, 0);
-                randMaxY -= deltaY;
+                rb.velocity = new Vector3(0, speed * -1, 0);
+                speed -= 0.1f;
                 yield return new WaitForFixedUpdate();
             }
+            rb.velocity = Vector3.zero;
         }
     }
 }
